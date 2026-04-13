@@ -9,16 +9,16 @@ interface NotehubResponse {
 const token = import.meta.env.VITE_NOTEHUB_TOKEN;
 
 const fetchNotes = async (
-  query: string,
+  search: string,
   page: number,
+  perPage: number,
 ): Promise<NotehubResponse> => {
-  const response = await axios.get<NotehubResponse>(
-    `https://notehub-public.goit.study/api/notes`,
-    {
-      params: { query: query, page: page },
-      headers: { Authorization: `Bearer ${token}` },
-    },
-  );
+  const url = `https://notehub-public.goit.study/api`;
+
+  const response = await axios.get<NotehubResponse>(`${url}/notes`, {
+    params: { search, page, perPage },
+    headers: { Authorization: `bearer ${token}` },
+  });
 
   return response.data;
 };
