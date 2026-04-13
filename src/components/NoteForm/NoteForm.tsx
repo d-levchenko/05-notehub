@@ -39,7 +39,13 @@ const NoteForm = ({ onCancel }: NoteFormProps) => {
       <Form className={css.form}>
         <div className={css.formGroup}>
           <label htmlFor="title">Title</label>
-          <Field id="title" type="text" name="title" className={css.input} />
+          <Field
+            id="title"
+            type="text"
+            name="title"
+            className={css.input}
+            as="input"
+          />
           <ErrorMessage name="title" className={css.error} />
         </div>
 
@@ -50,13 +56,14 @@ const NoteForm = ({ onCancel }: NoteFormProps) => {
             name="content"
             rows={8}
             className={css.textarea}
+            as="textarea"
           />
           <ErrorMessage name="content" className={css.error} />
         </div>
 
         <div className={css.formGroup}>
           <label htmlFor="tag">Tag</label>
-          <Field id="tag" name="tag" className={css.select}>
+          <Field id="tag" name="tag" className={css.select} as="select">
             <option value="Todo">Todo</option>
             <option value="Work">Work</option>
             <option value="Personal">Personal</option>

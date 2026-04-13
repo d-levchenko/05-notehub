@@ -8,7 +8,7 @@ import SearchBox from '../SearchBox/SearchBox';
 import Pagination from '../Pagination/Pagination';
 import NoteForm from '../NoteForm/NoteForm';
 
-import fetchNotes from '../../services/noteService';
+import noteService from '../../services/noteService';
 import Modal from '../Modal/Modal';
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ['notes', search, page],
-    queryFn: () => fetchNotes(search, page, PER_PAGE),
+    queryFn: () => noteService.fetchNotes(search, page, PER_PAGE),
     enabled: search.trim() !== '',
     placeholderData: keepPreviousData,
   });

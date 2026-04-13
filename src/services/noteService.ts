@@ -6,21 +6,45 @@ interface NotehubResponse {
   totalPages: number;
 }
 
+interface CreateNoteProps {
+  title: string;
+  content: string;
+  tag: string;
+}
+
 const token = import.meta.env.VITE_NOTEHUB_TOKEN;
+
+const api = axios.create({
+  baseURL: `https://notehub-public.goit.study/api`,
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
 
 const fetchNotes = async (
   search: string,
   page: number,
   perPage: number,
 ): Promise<NotehubResponse> => {
-  const url = `https://notehub-public.goit.study/api`;
-
-  const response = await axios.get<NotehubResponse>(`${url}/notes`, {
+  const { data } = await api.get<NotehubResponse>(`/notes`, {
     params: { search, page, perPage },
-    headers: { Authorization: `bearer ${token}` },
   });
 
-  return response.data;
+  return data;
 };
 
-export default fetchNotes;
+const createNote = async ({
+  title,
+  content,
+  tag,
+}: CreateNoteProps): Promise<Note> => {
+  const { data } = await api.post<Note>('/notes', { title, content, tag });
+  return data;
+};
+
+const deleteNote = async (noteId: string): Promise<Note> => {
+  const { data } = await api.delete<Note>(`/notes/${noteId}`);
+  return data;
+};
+
+export default { fetchNotes, createNote, deleteNote };
