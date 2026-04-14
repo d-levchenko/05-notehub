@@ -25,7 +25,6 @@ const App = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['notes', search, page],
     queryFn: () => noteService.fetchNotes(search, page, PER_PAGE),
-    enabled: search.trim() !== '',
     placeholderData: keepPreviousData,
   });
 
